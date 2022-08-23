@@ -1,0 +1,105 @@
+<nav class="navbar navbar-expand-lg bg-light">
+  <div class="container-fluid">
+
+    <a class="navbar-brand" href="#">
+      <img src="assets/images/t.png" alt="" width="40" height="27" class="d-inline-block align-text-top">
+      APEEX
+    </a>
+
+    
+    <img src="" alt="">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" [routerLink]="['/']" aria-current="page" href="#">Home</a>
+        </li>
+      </ul>
+
+      <div class="d-flex" role="search">
+
+        <input class="form-control me-2" type="text"  [(ngModel)]="filter.name"
+          placeholder="Search your pokemon" aria-label="Search">
+        <button class="btn btn-outline-success" (click)="show = !show">{{show ? 'Search' : 'Cancel'}}</button>
+      </div>
+    </div>
+  </div>
+
+</nav>
+
+
+<div class="container-fluid">
+
+
+  <div class="row" *ngIf="show; else block">
+    <h1 class="mb-3 text-center text-white bg-info">PokeDex</h1>
+    <div *ngFor="let pokemon of pokemons  | paginate: {itemsPerPage: 8, currentPage: page } " class="col-md-3">
+      <div class="card h-50">
+      <div class="card mb-3 text-center shadow p-3 mb-5 bg-body rounded"
+        style="background-color: rgba(133, 197, 250, 0.411); ">
+        <img class="img2" id="img2"
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7pPY9hs6pE7D3E8mJMSBYiV_3C8Xscmmuwg&usqp=CAU"
+          alt="">
+        <img id="img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/{{pokemon.id}}.png" class="img-thumbnail "
+          alt="...">
+        <div class="card-body">
+          <h5 class="card-title ">{{pokemon.name }}</h5>
+          <p class="card-text ">Type: <span *ngFor="let type of pokemon.types">
+              {{type.type.name}},
+            </span></p>
+
+          
+          
+        </div>
+        
+            <a href="#" class="btn btn-info text-center text-light" [routerLink]="['/view', pokemon.name]" >Details</a>
+      </div>
+    </div>
+      
+      
+    </div>
+    
+
+    <pagination-controls class="pagination justify-content-center " (pageChange)="page = $event" previousLabel="Previous"
+      nextLabel="Next"></pagination-controls>
+
+  </div>
+
+
+
+  <ng-template #block>
+    <div class="row">
+      <h1 class="mb-3 text-center text-white bg-info">PokeDex</h1>
+      <div *ngFor="let pokemon of pokemons  | filterBy: filter" class="col-md-3">
+
+        <div class="card mb-3 text-center shadow p-3 mb-5 bg-body rounded"
+          style="background-color: rgba(133, 197, 250, 0.411);">
+          <img class="img2" id="img2"
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7pPY9hs6pE7D3E8mJMSBYiV_3C8Xscmmuwg&usqp=CAU"
+            alt="">
+          <img id="img"
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/{{pokemon.id}}.png"
+            class="img-thumbnail " alt="...">
+          <div class="card-body">
+            <h5 class="card-title text-center">{{pokemon.name }}</h5>
+            <p class="card-text text-center">Type: <span *ngFor="let type of pokemon.types">
+                {{type.type.name}},
+              </span></p>
+            
+          </div>
+          <a href="#" class="btn btn-info text-center text-light" [routerLink]="['/view', pokemon.name]" >Details</a>
+
+        </div>
+      </div>
+      <div *ngIf="(pokemons | filterBy: filter).length === 0"> No matching elements </div>
+
+    </div>
+  </ng-template>
+
+</div>
+

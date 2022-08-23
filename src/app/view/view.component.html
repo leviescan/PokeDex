@@ -1,0 +1,140 @@
+<nav class="navbar navbar-expand-lg bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <img src="assets/images/t.png" alt="" width="40" height="27" class="d-inline-block align-text-top">
+      APEEX
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link " [routerLink]="['/']" aria-current="page" href="#">Home</a>
+        </li>
+        
+        
+        
+      </ul>
+
+      
+     
+    </div>
+  </div>
+ 
+</nav>
+
+
+
+
+
+<div class="container-fluid text-center ">
+  <h1 class="mb-3 text-center text-white bg-info">PokeDex</h1>
+<div class="row justify-content-evenly">
+    
+    <div class="col-md-4 mt-5 shadow p-3 mb-5 bg-body rounded">
+      <div class="card h-100 ">
+        <div class="card text-center " style=" background-color: rgba(143, 120, 247, 0.082);" >
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/{{pokemon.id}}.png" class="card-img-top  " alt="...">
+            <div class="card-body">
+              <h3 class="card-title text-uppercase"> {{pokemon.name}}</h3>
+              <p class="card-text" >type: <span *ngFor="let type of pokemon.types">{{type.type.name }}. </span> </p>
+             
+                 <p class="badge bg-warning text-wrap">Exp: {{pokemon.base_experience }}</p>
+                 <p class="badge bg-success text-wrap">Height: {{pokemon.height }} cm</p>
+                 <p class="badge bg-info text-wrap">Weight: {{pokemon.weight}} cm</p>
+            
+              
+            </div>
+            <a href="#" class="btn btn-primary text-center" [routerLink]="['/']">Go home</a>
+          </div>
+      </div>
+    </div>
+    <div class="col-md-4 mt-5 shadow p-3 mb-5 bg-body rounded">
+      <div class="card mb-3 h-100" style="background-color: rgba(27, 252, 57, 0.027) ;">
+        
+            <div class="card-body " >
+                <h3 class="card-title text-center">STATISTICS</h3>
+                <div *ngFor="let stat of pokemon.stats" class="row mt-3">
+                    <div class="col-sm-2">
+                        <h6 class="text-sm-end mt-1">{{stat.stat.name }}</h6>
+                    </div>
+                    <div class="col-sm-10">
+                        <div class="progress" style="height: 30px">
+                            <div class="progress-bar  progress-bar-animated bg-info "
+                                role="progressbar " style="height: 30px;" [style.width]="stat.base_stat + '%'"
+                                aria-valuemin="0" aria-valuemax="100">
+                                <b>{{stat.base_stat}}</b>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                <div class="card-body text-center">
+                    <h3 class="card-title ">ABILITIES</h3>
+                    <p class="card-text"> <span class="badge bg-info text-wrap"  *ngFor="let ability of pokemon.abilities"> {{ability.ability.name}} </span> </p>
+                </div>
+                          
+      </div>
+    </div>
+
+
+    <div class="col-md-4 mt-5 shadow p-3 mb-5 bg-body rounded">
+      <div class="card h-100 " style="background-color: rgba(250, 210, 79, 0.034);">
+        <div class="card-body">
+        
+            <h3 class="text-center">EVOLUTION</h3>
+            <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                  <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                  <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                  <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                  <div class="carousel-item active " data-bs-interval="2000" *ngFor="let evolution of pokemon.evolutions">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/{{evolution.id}}.png"  class="d-block w-100 h-100" alt="...">
+                    <div class="carousel-caption d-none d-md-block ">
+                      <h2 class="text-uppercase">{{evolution.name}}</h2>
+                      <a type="button" class="btn btn-primary" [routerLink]="['/view', evolution.name]">See details</a>
+                    </div>
+                  </div>
+                  
+                  
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+
+            
+        
+    </div>
+    </div>
+  </div>
+  </div>
+
+
+                <footer class="container-xxl mt-5">
+                    <div class="card-body">
+                        <h3 class="card-title">MOVES</h3>
+                    </div>
+                    <div>
+                        <p class="card-text">
+                            <span class="badge bg-secondary text-wrap" *ngFor="let move of pokemon.moves" > {{move.move.name }}</span>
+                        </p>
+                    </div>
+                </footer>
+                    
+               
+           
+      
+   
+
+    
+
